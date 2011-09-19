@@ -58,7 +58,7 @@
 form Counting Syllables in Sound Utterances
    real Silence_threshold_(dB) -25
    real Minimum_dip_between_peaks_(dB) 2
-   real Minimum_pause_duration_(s) 0.3
+   real Minimum_pause_duration_(s) 0.1
    boolean Keep_Soundfiles_and_Textgrids yes
    sentence directory /directory
 endform
@@ -235,8 +235,11 @@ for ifile to numberOfFiles
     plus 'pitchid'
     plus 'silencetierid'
     plus 'silencetableid'
-
     Remove
+    
+    select 'textgridid'
+    Save as text file... 'directory$'/'fileName$'.TextGrid
+    
     if showtext < 1
        select 'soundid'
        plus 'textgridid'
