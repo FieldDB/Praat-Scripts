@@ -46,7 +46,7 @@
 # + bug fixed concerning summing total pause, feb 28th 2011
 ###########################################################################
 
-
+# 
 # counts syllables of all sound utterances in a directory
 # NB unstressed syllables are sometimes overlooked
 # NB filter sounds that are quite noisy beforehand
