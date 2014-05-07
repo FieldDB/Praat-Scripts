@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/OpenSourceFieldlinguistics/Praat-Scripts.png)](https://travis-ci.org/OpenSourceFieldlinguistics/Praat-Scripts)
+
 GitHub Mirror of http://www.helsinki.fi/~lennes/praat-scripts/ 
 
 
