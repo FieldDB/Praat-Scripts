@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/OpenSourceFieldlinguistics/Praat-Scripts/issues"
   },
-  "homepage": "https://github.com/OpenSourceFieldlinguistics/Praat-Scripts"
+  "homepage": "https://github.com/OpenSourceFieldlinguistics/Praat-Scripts",
+  "devDependencies": {
+    "jasmine-node": "^1.14.3"
+  }
 }

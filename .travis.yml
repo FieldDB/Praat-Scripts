@@ -3,4 +3,5 @@ node_js:
   - '0.8'
   - '0.10'
 before_script:
+  - 'npm install -g jasmine-node'
   - 'npm install'
