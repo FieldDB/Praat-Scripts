@@ -24,7 +24,37 @@ These scripts are distributed under the [GNU General Public License](http://www.
 * Please refer any interested parties to this web page ( [http://www.helsinki.fi/~lennes/praat-scripts/](http://www.helsinki.fi/~lennes/praat-scripts/) ).
 * If you can't find the script you need, take a look at some other Praat script resources on the web.
 
-**How to run and modify the scripts:** see Scripting tutorial in the built-in Help pages within the [Praat](http://www.praat.org/) program (see the Help menu in the Objects list). 
+**How to run and modify the scripts:**
+
+### Praat
+See Scripting tutorial in the built-in Help pages within the [Praat](http://www.praat.org/) program (see the Help menu in the Objects list). 
+ 
+### Node.js webservice
+
+Add the scripts to your list of dependancies:
+
+```bash
+$ npm install praat-scripts --save
+```
+
+Reference the scripts where you want to execute them:
+
+```js
+var praatCommand = " praat ";
+var praatMacCommand = " Applications/Praat.app/Contents/MacOS/Praat ";
+
+var scriptToRun = "script_you_want_to_run.praat";
+var workingDir = "/tmp/dir_where_audio_files_are";
+var wavFile = "your_wav_file.wav";
+var scriptParameters = "-20 4 0.4 0.1 no \"" + workingDir + "\"   \"" + wavFile + "\"";
+
+var textGridCommand = praatCommand + __dirname + "/node_modules/praat-scripts/" + scriptToRun + "  " + scriptParameters; //+ " 2>&1 ";
+
+childProcess.exec(textGridCommand , function(error, stdout, stderr) {
+  console.log("Script execution is complete, here are the results: " + stdout);
+});
+
+```
 
 **Requirements:** In the Requirements column, you can find information on what type of objects have to be selected in the Object list or what sort of files are needed in order to run each script. This is important especially when you want to create new buttons or menu commands to use the script.
 
