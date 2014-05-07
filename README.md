@@ -63,3 +63,20 @@ childProcess.exec(textGridCommand , function(error, stdout, stderr) {
 **Compatibility note:** Some of the scripts were originally written in a Windows machine, some in Macintosh, and some in Linux. All of them should work in any platform running Praat, but you may want to change, e.g., the default path for files according to your system. The version number tells you the Praat version on which the script has been tested. Sometimes the commands change in Praat, and consequently all of the scripts may not work in all Praat versions.
 
 
+
+### Citing these scripts
+
+Option 1: find the individual script's paper in Meitta's papers [Google Scholar](http://scholar.google.ca/scholar?q=mietta+lennes&btnG=&hl=en&as_sdt=0%2C5) or in [Meitta's BibTeX](http://www.helsinki.fi/~lennes/lennes.bib)
+
+Option 2.: Cite the project
+
+```tex
+@misc{LennesSpeCT,
+	Author = {Mietta Lennes},
+	Howpublished = {Previously known as "{Mietta's scripts for the Praat program}"},
+	Keywords = {script, Praat, corpus, analysis, annotation, acoustic},
+	Note = {Retrieved 21.2.2011. [Website] <\url{http://www.helsinki.fi/\~lennes/praat-scripts/}>},
+	Title = {{SpeCT --- The Speech Corpus Toolkit for Praat}},
+	Year = {2011}
+}
+```
