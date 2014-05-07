@@ -1,0 +1,26 @@
+{
+  "name": "praat-scripts",
+  "version": "4.0.5",
+  "description": "SpeCT - The Speech Corpus Toolkit for Praat",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine-node tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/OpenSourceFieldlinguistics/Praat-Scripts.git"
+  },
+  "keywords": [
+    "praat",
+    "scripts",
+    "phonetics",
+    "mietta",
+    "lennes"
+  ],
+  "author": "Mietta Lennes <mietta.lennes ATT helsinki.fi> (http://www.helsinki.fi/~lennes/praat-scripts/)",
+  "license": "GPL, Apache",
+  "bugs": {
+    "url": "https://github.com/OpenSourceFieldlinguistics/Praat-Scripts/issues"
+  },
+  "homepage": "https://github.com/OpenSourceFieldlinguistics/Praat-Scripts"
+}
