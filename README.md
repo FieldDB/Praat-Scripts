@@ -40,6 +40,8 @@ $ npm install praat-scripts --save
 Reference the scripts where you want to execute them:
 
 ```js
+var childProcess = require('child_process');
+
 var praatCommand = " praat ";
 var praatMacCommand = " Applications/Praat.app/Contents/MacOS/Praat ";
 
