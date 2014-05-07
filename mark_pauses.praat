@@ -31,8 +31,8 @@ form Give the parameters for pause analysis
    real Starting_time_(seconds) 0
    real Finishing_time_(0=all) 0
    comment The following criteria define a pause:
-   positive Minimum_duration_(seconds) 0.6
-   positive Maximum_intensity_(dB) 59
+   positive Minimum_duration_(seconds) 0.39
+   positive Maximum_intensity_(dB) 63
    comment Give the intensity analysis parameters:
 	 positive Minimum_pitch_(Hz) 100
 	 integer Time_step_(0=auto) 0
@@ -43,15 +43,20 @@ form Give the parameters for pause analysis
 	button Two boundaries with a time margin of:
 	positive Margin_(seconds) 0.1
 	comment (The margin will not be used if the pause is shorter than 2 * margin.)
-	boolean Mark_pause_intervals_with_xxx 0
+	boolean Mark_pause_intervals_with_silence 1
    comment Save TextGrid file to folder:
-	text folder /home/lennes/
+	text folder /Users/username/
    comment The script will pause after calculating 4 windows, so you can interrupt the script and check if the pause detection works optimally.
+   sentence directory /Users/username
+   sentence fileName filename_to_process.wav
 endform
 
 
+# read file
+  do ("Open long sound file...",  "'directory$'/'fileName$'")
+
 soundname$ = selected$ ("LongSound")
-To TextGrid... sentence 
+To TextGrid... utterances 
 
 if fileReadable ("'folder$''soundname$'.TextGrid")
 	pause The file 'folder$''soundname$'.TextGrid already exists. Do you want to overwrite it?
@@ -102,7 +107,7 @@ count = 1
 latest_endboundary = 0
 while count <= loops
 	if count = 5
-		pause Continue?
+		 # pause Continue?
 	endif
 	# Create a window of the LongSound and extract it for analysis
 	windowstart = starting_time + ((count - 1) * window_size)
@@ -116,9 +121,9 @@ while count <= loops
 	select LongSound 'soundname$'
 	Extract part... windowstart windowend yes
 	windowname$ = "Window_" + "'count'" + "_of_" + "'loops'"
-	echo Analysing Intensity window 'count' of 'loops'
+	# echo Analysing Intensity window 'count' of 'loops'
 	if count < 5
-		printline The script will pause after calculating 4 windows, so you can check the result...
+		# printline The script will pause after calculating 4 windows, so you can check the result...
 	endif
 	Rename... 'windowname$'
 	#--------------------------------------------------------------------------------------------------
@@ -129,6 +134,13 @@ while count <= loops
 	# Check the pause criteria
 	pauseend = 0
 	frame = 1
+	
+	# put an initial boundary
+	select TextGrid 'soundname$'
+	boundary = 0
+	# Insert utterance boundary at  the beginning of the file
+	utteranceinterval = Get interval at time... 1 boundary
+	Set interval text... 1 utteranceinterval utterance
 		#--------------------------------------------------------------------------------------------------
 		# Loop through all frames in the Intensity object:
 		while frame <= frames
@@ -166,6 +178,8 @@ while count <= loops
 							if boundaryexists = 0
 								Insert boundary... 1 boundary
 								latest_endboundary = boundary
+								utteranceinterval = Get interval at time... 1 boundary
+								Set interval text... 1 utteranceinterval utterance
 							endif
 						else
 							boundary = 0
@@ -181,15 +195,17 @@ while count <= loops
 										Remove boundary at time... 1 boundary
 									endif
 								endif
-								if mark_pause_intervals_with_xxx = 1
+								if mark_pause_intervals_with_silence = 1
 									pauseinterval = Get interval at time... 1 boundary
-									Set interval text... 1 pauseinterval xxx
+									Set interval text... 1 pauseinterval silence
 								endif
 								boundary = pauseend - margin
 								call BoundaryCheck
 								if boundaryexists = 0 and boundary > latest_endboundary
 									Insert boundary... 1 boundary
 									latest_endboundary = boundary
+									utteranceinterval = Get interval at time... 1 boundary
+									Set interval text... 1 utteranceinterval utterance
 								endif
 							else
 								if pauseend < (endofsound - margin)
@@ -198,6 +214,8 @@ while count <= loops
 									if boundaryexists = 0 and boundary > latest_endboundary
 										Insert boundary... 1 boundary
 										latest_endboundary = boundary
+										utteranceinterval = Get interval at time... 1 boundary
+										Set interval text... 1 utteranceinterval utterance
 									endif
 								endif
 							endif
@@ -221,7 +239,19 @@ endwhile
 select TextGrid 'soundname$'
 Write to text file... 'folder$''soundname$'.TextGrid
 
-echo Ready! The TextGrid file was saved as 'folder$''soundname$'.TextGrid.
+
+
+printline {
+printline "fileBaseName": "'soundname$'", 
+printline "syllableCount": "0", 
+printline "pauseCount": "'pauses_found'", 
+printline "totalDuration": "0", 
+printline "speakingTotalDuration": "0", 
+printline "speakingRate": "0", 
+printline "articulationRate": "0", 
+printline "averageSylableDuration": "0",
+printline "scriptVersion": "v1.102.2"
+printline }
 
 #******************************************************************************************************
 
