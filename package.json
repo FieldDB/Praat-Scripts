@@ -1,6 +1,6 @@
 {
   "name": "praat-scripts",
-  "version": "4.0.6",
+  "version": "4.0.7",
   "description": "SpeCT - The Speech Corpus Toolkit for Praat",
   "main": "index.js",
   "scripts": {

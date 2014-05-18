@@ -53,7 +53,7 @@ endform
 
 
 # read file
-  do ("Open long sound file...",  "'directory$'/'fileName$'")
+Open long sound file... 'directory$'/'fileName$'
 
 soundname$ = selected$ ("LongSound")
 To TextGrid... utterances 
