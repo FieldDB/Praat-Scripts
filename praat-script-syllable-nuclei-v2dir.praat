@@ -2,7 +2,7 @@
 #                                                                         #
 #  Praat Script Syllable Nuclei                                           #
 #  Copyright (C) 2008  Nivja de Jong and Ton Wempe                        #
-# Source: https://sites.google.com/site/speechrate/Home/praat-script-syllable-nuclei-v2 
+# Source: https://sites.google.com/site/speechrate/Home/praat-script-syllable-nuclei-v2
 #                                                                         #
 #    This program is free software: you can redistribute it and/or modify #
 #    it under the terms of the GNU General Public License as published by #
@@ -20,7 +20,7 @@
 ###########################################################################
 #
 # modified 2010.09.17 by Hugo Quené, Ingrid Persoon, & Nivja de Jong
-# Overview of changes: 
+# Overview of changes:
 # + change threshold-calculator: rather than using median, use the almost maximum
 #     minus 25dB. (25 dB is in line with the standard setting to detect silence
 #     in the "To TextGrid (silences)" function.
@@ -32,7 +32,7 @@
 #         articulation rate = number of syllables / phonation time
 # + remove max number of syllable nuclei
 # + refer to objects by unique identifier, not by name
-# + keep track of all created intermediate objects, select these explicitly, 
+# + keep track of all created intermediate objects, select these explicitly,
 #     then Remove
 # + provide summary output in Info window
 # + do not save TextGrid-file but leave it in Object-window for inspection
@@ -63,14 +63,14 @@ form Counting Syllables in Sound Utterances
    sentence directory /directory
 endform
 
- 
+
 
 # shorten variables
 silencedb = 'silence_threshold'
 mindip = 'minimum_dip_between_peaks'
 showtext = 'keep_Soundfiles_and_Textgrids'
 minpause = 'minimum_pause_duration'
- 
+
 # print a single header line with column names and units
 printline soundname, nsyll, npause, dur (s), phonationtime (s), speechrate (nsyll/dur), articulation rate (nsyll / phonationtime), ASD (speakingtime/nsyll)
 
@@ -148,7 +148,7 @@ for ifile to numberOfFiles
    # fill array with time points
    for i from 1 to numpeaks
        t'i' = Get time from index... 'i'
-   endfor 
+   endfor
 
 
    # fill array with intensity values
@@ -164,7 +164,7 @@ for ifile to numberOfFiles
    endfor
 
 
-   # fill array with valid peaks: only intensity values if preceding 
+   # fill array with valid peaks: only intensity values if preceding
    # dip in intensity is greater than mindip
    select 'intid'
    validpeakcount = 0
@@ -187,7 +187,7 @@ for ifile to numberOfFiles
 
 
    # Look for only voiced parts
-   select 'soundid' 
+   select 'soundid'
    To Pitch (ac)... 0.02 30 4 no 0.03 0.25 0.01 0.35 0.25 450
    # keep track of id of Pitch
    pitchid = selected("Pitch")
@@ -211,7 +211,7 @@ for ifile to numberOfFiles
       endif
    endfor
 
-   
+
    # calculate time correction due to shift in time for Sound object versus
    # intensity object
    timecorrection = originaldur/intdur
@@ -220,7 +220,7 @@ for ifile to numberOfFiles
    if showtext > 0
       select 'textgridid'
       Insert point tier... 1 syllables
-      
+
       for i from 1 to voicedcount
           position = voicedpeak'i' * timecorrection
           Insert point... 1 position 'i'
@@ -236,10 +236,10 @@ for ifile to numberOfFiles
     plus 'silencetierid'
     plus 'silencetableid'
     Remove
-    
+
     select 'textgridid'
     Save as text file... 'directory$'/'fileName$'.TextGrid
-    
+
     if showtext < 1
        select 'soundid'
        plus 'textgridid'
@@ -251,7 +251,7 @@ for ifile to numberOfFiles
    articulationrate = 'voicedcount'/'speakingtot'
    npause = 'npauses'-1
    asd = 'speakingtot'/'voicedcount'
-   
+
    printline 'soundname$', 'voicedcount', 'npause', 'originaldur:2', 'speakingtot:2', 'speakingrate:2', 'articulationrate:2', 'asd:3'
- 
+
 endfor
