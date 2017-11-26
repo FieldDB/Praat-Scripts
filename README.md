@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/OpenSourceFieldlinguistics/Praat-Scripts.png)](https://travis-ci.org/OpenSourceFieldlinguistics/Praat-Scripts)
+[![Build Status](https://travis-ci.org/FieldDB/Praat-Scripts.png)](https://travis-ci.org/FieldDB/Praat-Scripts)
 
-GitHub Mirror of http://www.helsinki.fi/~lennes/praat-scripts/ 
+GitHub Mirror of http://www.helsinki.fi/~lennes/praat-scripts/
 
 
 # SpeCT - The Speech Corpus Toolkit for Praat
@@ -27,8 +27,8 @@ These scripts are distributed under the [GNU General Public License](http://www.
 **How to run and modify the scripts:**
 
 ### Praat
-See Scripting tutorial in the built-in Help pages within the [Praat](http://www.praat.org/) program (see the Help menu in the Objects list). 
- 
+See Scripting tutorial in the built-in Help pages within the [Praat](http://www.praat.org/) program (see the Help menu in the Objects list).
+
 ### Node.js webservice
 
 Add the scripts to your list of dependancies:
